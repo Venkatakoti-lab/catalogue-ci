@@ -13,7 +13,7 @@ pipeline{
                     def packageJson = readJSON file: 'package.json'
                     // Access the 'version' property directly
                     appVersion = packageJson.version
-                    echo "Current package version: ${packageVersion}"
+                    echo "Current package version: ${appVersion}"
                 }
             }
         }
