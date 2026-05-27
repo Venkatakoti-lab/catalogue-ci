@@ -7,12 +7,14 @@ pipeline{
     }
     stages{
         stage("read app Version") {
-            script {
-                // Read the file and parse it into an object
-                def packageJson = readJSON file: 'package.json'
-                // Access the 'version' property directly
-                appVersion = packageJson.version
-                echo "Current package version: ${packageVersion}"
+            step{
+                script {
+                    // Read the file and parse it into an object
+                    def packageJson = readJSON file: 'package.json'
+                    // Access the 'version' property directly
+                    appVersion = packageJson.version
+                    echo "Current package version: ${packageVersion}"
+                }
             }
         }
     }
