@@ -3,9 +3,14 @@ pipeline{
         label "NODE-1"
     }
     environment{
-        appVersion= ''
+        appVersion= ""
     }
     stages{
+        stage("Clean Workspace"){
+            steps{
+                cleanWs()
+            }
+        }
         stage("Read the version"){
             steps{
                 script{
@@ -24,10 +29,6 @@ pipeline{
         }
     }
     post{
-        always{
-            echo "this will execute always"
-            deleteDir()
-        }
         success{
             echo "this will execute only success the build"
         }
