@@ -2,10 +2,17 @@ pipeline{
     agent{
         label "NODE-1"
     }
+    environment{
+        appVersion= ""
+    }
     stages{
-        stage("build"){
+        stage("Read the version"){
             steps{
-                echo "Hello this is build"
+                script{
+                    def packageJson = readJSON file: 'package.json'
+                    appVersion = packageJson.version
+                    echo "${appVersion}"
+                }
             }
         }
         stage("test"){
