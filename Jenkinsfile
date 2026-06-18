@@ -6,11 +6,6 @@ pipeline{
         appVersion= ""
     }
     stages{
-        stage("Clean Workspace"){
-            steps{
-                cleanWs()
-            }
-        }
         stage("Read the version"){
             steps{
                 script{
@@ -31,6 +26,7 @@ pipeline{
     post{
         success{
             echo "this will execute only success the build"
+            cleanWs()
         }
         failure{
             echo "this will execute only fail the build"
