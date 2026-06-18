@@ -29,7 +29,7 @@ pipeline{
         stage("Build and Push"){
             steps{
                 script{
-                    withAWS(credentials: 'aws-creds', region: '${REGION}') {
+                    withAWS(credentials: 'aws_creds', region: '${REGION}') {
                         sh """
                             aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ACC_ID}.dkr.ecr.${REGION}.amazonaws.com
                             docker build -t ${ACC_ID}.dkr.ecr.${REGION}.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion} .
