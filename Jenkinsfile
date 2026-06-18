@@ -3,7 +3,7 @@ pipeline{
         label "NODE-1"
     }
     environment{
-        appVersion= ""
+        appVersion= ''
     }
     stages{
         stage("Read the version"){
