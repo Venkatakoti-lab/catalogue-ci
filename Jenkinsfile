@@ -4,6 +4,10 @@ pipeline{
     }
     environment{
         appVersion= ""
+        REGION= "us-east-1"
+        ACC_ID= "747639505780"
+        PROJECT= "roboshop"
+        COMPONENT= "catalogue"
     }
     stages{
         stage("Read the version"){
@@ -20,6 +24,15 @@ pipeline{
                 sh """
                     npm install
                 """
+            }
+        }
+        stage("Build and Push"){
+            steps{
+                withAWS(credentials: 'aws-creds', region: '${REGION}') {
+                    aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ACC_ID.dkr.ecr.${REGION}.amazonaws.com
+                    docker build -t ACC_ID.dkr.ecr.${REGION}.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion} .
+                    docker push ACC_ID.dkr.ecr.${REGION}.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion}
+                }
             }
         }
     }
